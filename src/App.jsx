@@ -100,6 +100,8 @@ function App() {
 
         <button
           onClick={addTask}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = '#45a049')}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = '#4CAF50')}
           style={{
             padding: '10px 20px',
             fontSize: '16px',
@@ -108,6 +110,7 @@ function App() {
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',
+            transition: 'background-color 0.3s',
           }}
         >
           Add Task
@@ -321,6 +324,20 @@ function App() {
             ))}
           </ul>
         )}
+      </div>
+
+      {/* Footer */}
+      <div
+        style={{
+          marginTop: '40px',
+          paddingTop: '20px',
+          borderTop: '1px solid #ddd',
+          textAlign: 'center',
+          color: '#888',
+          fontSize: '14px',
+        }}
+      >
+        <p>Built with React • {new Date().getFullYear()}</p>
       </div>
     </div>
   );
