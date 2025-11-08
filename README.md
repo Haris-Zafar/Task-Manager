@@ -1,16 +1,90 @@
-# React + Vite
+# Task Manager App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, simple yet feature-rich task management application built with React.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[View Live App](https://task-manager-gamma-bay.vercel.app/)
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Add, edit, and delete tasks
+- ✅ Mark tasks as complete/incomplete
+- ✅ Filter tasks (All/Active/Completed)
+- ✅ Real-time task statistics
+- ✅ Data persistence with localStorage
+- ✅ Inline editing with keyboard shortcuts
+- ✅ Clear completed tasks
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 18
+- JavaScript (ES6+)
+- HTML5 & CSS3
+- localStorage API
+- React Hooks (useState, useEffect)
+
+## 🧠 Key Concepts Demonstrated
+
+- State management with useState
+- Side effects with useEffect
+- Event handling
+- Conditional rendering
+- Array methods (map, filter)
+- Browser storage integration
+- Controlled components
+- Keyboard shortcuts
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Haris-Zafar/Task-Manager.git
+
+# Install dependencies
+npm install
+
+# Run development server
+npm start
+
+# Build for production
+npm run build
+```
+
+## 🎯 Why I Built This
+
+This project was built to practice React fundamentals and modern web development practices. It showcases:
+
+- Clean, maintainable code
+- Real-world application patterns
+- User experience considerations
+- Production-ready features
+
+## 📱 Usage
+
+1. **Add Task:** Type in the input field and press Enter or click "Add Task"
+2. **Complete Task:** Click on the task text to mark it complete
+3. **Edit Task:** Click the "Edit" button, modify text, and press Enter to save
+4. **Delete Task:** Click the "Delete" button to remove a task
+5. **Filter Tasks:** Use the filter buttons to view All, Active, or Completed tasks
+6. **Clear Completed:** Remove all completed tasks at once
+
+## 🚀 Future Enhancements
+
+- Due dates and priorities
+- Categories/tags
+- Dark mode
+- Task search functionality
+- Export tasks to CSV
+- Drag and drop reordering
+
+## 👤 Author
+
+**M Haris Zafar**
+
+- GitHub: [@Haris-Zafar](https://github.com/Haris-Zafar)
+- LinkedIn: [M Haris Zafar](https://www.linkedin.com/in/m-haris-zafar/)
+
+## 📄 License
+
+This project is open source and available under the MIT License.
