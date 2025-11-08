@@ -10,7 +10,6 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
 
-  // Save to localStorage whenever tasks change
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
@@ -70,274 +69,163 @@ function App() {
   };
 
   return (
-    <div
-      style={{
-        padding: '20px',
-        maxWidth: '600px',
-        margin: '0 auto',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      <h1 style={{ color: '#333', marginBottom: '30px' }}>My Task Manager</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold text-gray-800 text-center mb-8">
+          My Task Manager
+        </h1>
 
-      {/* Add Task Section */}
-      <div style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-          onKeyUp={(e) => e.key === 'Enter' && addTask()}
-          placeholder="Enter a task..."
-          style={{
-            padding: '10px',
-            width: '300px',
-            fontSize: '16px',
-            marginRight: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-          }}
-        />
+        {/* Add Task Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              onKeyUp={(e) => e.key === 'Enter' && addTask()}
+              placeholder="Enter a task..."
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <button
+              onClick={addTask}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              Add Task
+            </button>
+          </div>
+        </div>
 
-        <button
-          onClick={addTask}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = '#45a049')}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = '#4CAF50')}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            transition: 'background-color 0.3s',
-          }}
-        >
-          Add Task
-        </button>
-      </div>
+        {/* Filter Tabs */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'all'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              All ({tasks.length})
+            </button>
 
-      {/* Filter Tabs */}
-      <div
-        style={{
-          marginBottom: '20px',
-          display: 'flex',
-          gap: '10px',
-          borderBottom: '2px solid #ddd',
-          paddingBottom: '10px',
-          flexWrap: 'wrap',
-        }}
-      >
-        <button
-          onClick={() => setFilter('all')}
-          style={{
-            padding: '8px 16px',
-            fontSize: '14px',
-            backgroundColor: filter === 'all' ? '#4CAF50' : '#fff',
-            color: filter === 'all' ? '#fff' : '#333',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: filter === 'all' ? 'bold' : 'normal',
-          }}
-        >
-          All ({tasks.length})
-        </button>
+            <button
+              onClick={() => setFilter('active')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'active'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Active ({tasks.filter((t) => !t.completed).length})
+            </button>
 
-        <button
-          onClick={() => setFilter('active')}
-          style={{
-            padding: '8px 16px',
-            fontSize: '14px',
-            backgroundColor: filter === 'active' ? '#4CAF50' : '#fff',
-            color: filter === 'active' ? '#fff' : '#333',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: filter === 'active' ? 'bold' : 'normal',
-          }}
-        >
-          Active ({tasks.filter((t) => !t.completed).length})
-        </button>
+            <button
+              onClick={() => setFilter('completed')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                filter === 'completed'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Completed ({tasks.filter((t) => t.completed).length})
+            </button>
 
-        <button
-          onClick={() => setFilter('completed')}
-          style={{
-            padding: '8px 16px',
-            fontSize: '14px',
-            backgroundColor: filter === 'completed' ? '#4CAF50' : '#fff',
-            color: filter === 'completed' ? '#fff' : '#333',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: filter === 'completed' ? 'bold' : 'normal',
-          }}
-        >
-          Completed ({tasks.filter((t) => t.completed).length})
-        </button>
+            <button
+              onClick={clearCompleted}
+              disabled={tasks.filter((t) => t.completed).length === 0}
+              className="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed ml-auto"
+            >
+              Clear Completed
+            </button>
+          </div>
+        </div>
 
-        <button
-          onClick={clearCompleted}
-          disabled={tasks.filter((t) => t.completed).length === 0}
-          style={{
-            padding: '8px 16px',
-            fontSize: '14px',
-            backgroundColor: '#dc3545',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            opacity: tasks.filter((t) => t.completed).length === 0 ? 0.5 : 1,
-          }}
-        >
-          Clear Completed
-        </button>
-      </div>
+        {/* Task List */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tasks</h2>
 
-      {/* Task List */}
-      <div>
-        <h2 style={{ color: '#555', marginBottom: '15px' }}>Tasks</h2>
+          {getFilteredTasks().length === 0 ? (
+            <p className="text-gray-500 text-center py-8">
+              {tasks.length === 0
+                ? 'No tasks yet. Add one above! 👆'
+                : `No ${filter} tasks!`}
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              {getFilteredTasks().map((t) => (
+                <li
+                  key={t.id}
+                  className={`flex items-center gap-3 p-4 rounded-lg transition-all ${
+                    t.completed ? 'bg-green-50' : 'bg-gray-100'
+                  }`}
+                >
+                  {editingId === t.id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        onKeyUp={(e) => {
+                          if (e.key === 'Enter') saveEdit(t.id);
+                          if (e.key === 'Escape') cancelEdit();
+                        }}
+                        autoFocus
+                        className="flex-1 px-3 py-2 border-2 border-blue-500 rounded-lg focus:outline-none"
+                      />
+                      <button
+                        onClick={() => saveEdit(t.id)}
+                        className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span
+                        onClick={() => toggleComplete(t.id)}
+                        className={`flex-1 cursor-pointer text-base ${
+                          t.completed
+                            ? 'line-through text-gray-500'
+                            : 'text-gray-800'
+                        }`}
+                      >
+                        {t.completed && '✓ '}
+                        {t.text}
+                      </span>
 
-        {getFilteredTasks().length === 0 ? (
-          <p style={{ color: '#888', textAlign: 'center', padding: '20px' }}>
-            {tasks.length === 0
-              ? 'No tasks yet. Add one above! 👆'
-              : `No ${filter} tasks!`}
-          </p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {getFilteredTasks().map((t) => (
-              <li
-                key={t.id}
-                style={{
-                  backgroundColor: t.completed ? '#d4edda' : '#f0f0f0',
-                  padding: '15px',
-                  marginBottom: '10px',
-                  borderRadius: '5px',
-                  fontSize: '16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: '10px',
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {editingId === t.id ? (
-                  // EDIT MODE
-                  <>
-                    <input
-                      type="text"
-                      value={editText}
-                      onChange={(e) => setEditText(e.target.value)}
-                      onKeyUp={(e) => {
-                        if (e.key === 'Enter') saveEdit(t.id);
-                        if (e.key === 'Escape') cancelEdit();
-                      }}
-                      autoFocus
-                      style={{
-                        flex: 1,
-                        padding: '8px',
-                        fontSize: '16px',
-                        border: '2px solid #4CAF50',
-                        borderRadius: '4px',
-                      }}
-                    />
-                    <button
-                      onClick={() => saveEdit(t.id)}
-                      style={{
-                        backgroundColor: '#4CAF50',
-                        color: 'white',
-                        border: 'none',
-                        padding: '5px 15px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                      }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={cancelEdit}
-                      style={{
-                        backgroundColor: '#6c757d',
-                        color: 'white',
-                        border: 'none',
-                        padding: '5px 15px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </>
-                ) : (
-                  // NORMAL MODE
-                  <>
-                    <span
-                      onClick={() => toggleComplete(t.id)}
-                      style={{
-                        textDecoration: t.completed ? 'line-through' : 'none',
-                        color: t.completed ? '#6c757d' : '#000',
-                        cursor: 'pointer',
-                        flex: 1,
-                      }}
-                    >
-                      {t.completed ? '✓ ' : ''}
-                      {t.text}
-                    </span>
+                      <button
+                        onClick={() => startEdit(t)}
+                        disabled={t.completed}
+                        className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Edit
+                      </button>
 
-                    <button
-                      onClick={() => startEdit(t)}
-                      disabled={t.completed}
-                      style={{
-                        backgroundColor: '#17a2b8',
-                        color: 'white',
-                        border: 'none',
-                        padding: '5px 15px',
-                        borderRadius: '4px',
-                        cursor: t.completed ? 'not-allowed' : 'pointer',
-                        fontSize: '14px',
-                        opacity: t.completed ? 0.5 : 1,
-                      }}
-                    >
-                      Edit
-                    </button>
+                      <button
+                        onClick={() => deleteTask(t.id)}
+                        className="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-colors text-sm font-medium"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-                    <button
-                      onClick={() => deleteTask(t.id)}
-                      style={{
-                        backgroundColor: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        padding: '5px 15px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div
-        style={{
-          marginTop: '40px',
-          paddingTop: '20px',
-          borderTop: '1px solid #ddd',
-          textAlign: 'center',
-          color: '#888',
-          fontSize: '14px',
-        }}
-      >
-        <p>Built with React • {new Date().getFullYear()}</p>
+        {/* Footer */}
+        <div className="mt-8 pt-6 border-t border-gray-300 text-center text-gray-600 text-sm">
+          <p>Built with React & Tailwind CSS • {new Date().getFullYear()}</p>
+        </div>
       </div>
     </div>
   );
